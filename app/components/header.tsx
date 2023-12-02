@@ -5,6 +5,7 @@ import React from 'react'
 import Image from 'next/image'
 import { UserButton } from '@clerk/nextjs'
 import { SignInButton, SignedOut } from '@clerk/clerk-react'
+import { ThemeToggler } from './ThemeToggler'
 const Header = () => {
   return (
     <header className='flex items-center justify-between'>
@@ -16,6 +17,7 @@ const Header = () => {
       </Link>
      { /* theme toggle button*/}
       <div className='px-5 flex space-x-2 items-center'>
+        <ThemeToggler></ThemeToggler>
         <UserButton afterSignOutUrl='/' />
         <SignedOut>
          <SignInButton afterSignInUrl='/dashboard' mode='modal'/>
