@@ -17,6 +17,7 @@ import { useUser } from "@clerk/nextjs"
 import { db, storage } from "@/firebase"
 import {deleteObject, ref} from "firebase/storage"
 import { deleteDoc, doc } from "firebase/firestore"
+import toast from 'react-hot-toast';
 
 export function DeleteModal() {
   const {user} = useUser();
@@ -30,6 +31,7 @@ export function DeleteModal() {
 
   async function deleteFile(){
     if(!user || !fileId ) return ;
+    const toastId= toast.loading("Deleting ...");
     const fileRef = ref(storage, `users/${user.id}/files/${fileId}`);
     try {
       deleteObject(fileRef).then(async () =>{
@@ -37,10 +39,21 @@ export function DeleteModal() {
           console.log('deleted file');
         });
       })
+      .finally(()=>{
+        toast.success("Deleteing ...",{
+          id: toastId
+        })
+        setIsDeleteModalOpen(false);
+
+      });
     } catch (error) {
-      console.log('error deleting',error);
+      // console.log('error deleting',error);
+      setIsDeleteModalOpen(false);
     }
     setIsDeleteModalOpen(false);
+    toast.success("Deleted Successfully",{
+      id: toastId
+    })
 
   }
 
@@ -72,6 +85,7 @@ export function DeleteModal() {
           <Button
           type="submit"
           size="sm"
+          variant={"destructive"}
           className="px-3 flex-1"
           onClick={()=> deleteFile()}>
             <span className="sr-only"> Delete</span>
