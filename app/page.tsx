@@ -45,7 +45,7 @@ export default function Home() {
       subsidries in
       any form. Copyright Discliamer under section 107 of the 
       Copyright Act
-      1976, allowance is made "fair use" of this video for education 
+      1976, allowance is made &apos;fair use&apos; of this video for education 
       purposes.
      </p>
     </main>
